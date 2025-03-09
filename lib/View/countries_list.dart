@@ -1,6 +1,9 @@
 import 'package:covid_tracker/Services/states_services.dart';
+import 'package:covid_tracker/View/detail_screan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -88,21 +91,36 @@ class _CountriesListState extends State<CountriesList> {
                                     searchController.text.toLowerCase())) {
                               return Column(
                                 children: [
-                                  ListTile(
-                                    leading: Image(
-                                      height: 50,
-                                      width: 50,
-                                      image: NetworkImage(snapshot.data![index]
-                                          ['countryInfo']['flag']),
+                                  InkWell(
+                                    onTap:(){
+                                      Get.to(()=>DetailScrean(
+                                        image: snapshot.data![index]['countryInfo']['flag'],
+                                        name: snapshot.data![index]['country'] ,
+                                        totalCases:  snapshot.data![index]['cases'] ,
+                                        totalRecovered: snapshot.data![index]['recovered'] ,
+                                        totalDeaths: snapshot.data![index]['deaths'],
+                                        active: snapshot.data![index]['active'],
+                                        test: snapshot.data![index]['tests'],
+                                        todayRecovered: snapshot.data![index]['todayRecovered'],
+                                        critical: snapshot.data![index]['critical'] ,
+                                      ));
+                                    },
+                                    child: ListTile(
+                                      leading: Image(
+                                        height: 50,
+                                        width: 50,
+                                        image: NetworkImage(snapshot.data![index]
+                                            ['countryInfo']['flag']),
+                                      ),
+                                      title: Text(
+                                        name,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      subtitle: Text(
+                                          "${snapshot.data![index]['cases']} cases"),
                                     ),
-                                    title: Text(
-                                      name,
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    subtitle: Text(
-                                        "${snapshot.data![index]['cases']} cases"),
                                   )
                                 ],
                               );
