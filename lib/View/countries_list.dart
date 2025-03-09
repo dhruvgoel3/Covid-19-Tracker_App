@@ -9,6 +9,9 @@ class CountriesList extends StatefulWidget {
 class _CountriesListState extends State<CountriesList> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(),
+    );
   }
 }
